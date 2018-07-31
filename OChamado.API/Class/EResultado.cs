@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace OChamado.API.Class
 {
+
     public enum EResultado
     {
         Solucionado = 1,
         NaoSolucionado = 2,
-        SolucionadoParcialmente = 3
+        SolucionadoParcialmente = 3 
     }
 }
