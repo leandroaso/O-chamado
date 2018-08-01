@@ -13,6 +13,7 @@ namespace OChamado.API.Models
         public String Nome { get; set; }
         [Required]
         public String Telefone { get; set; }
+        [Required]
         public String Email { get; set; }
         [Required]
         public String VendedorCodigo {get; set; }
