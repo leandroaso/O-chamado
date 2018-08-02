@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <StartupObject></StartupObject>
+    <UserSecretsId>d2464f03-82d7-4e2e-a019-782c6dea58cf</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\bootstrap-theme.css" />
