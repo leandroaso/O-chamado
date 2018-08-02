@@ -1,0 +1,81 @@
+﻿@page
+@model OChamado.Web.Pages.FuncionarioModel
+@{
+    ViewData["Title"] = "Funcionario";
+}
+    <section id="home">
+        <div class="container-fluid">
+            <!--Tabela de atendimentos tela inicial-->
+            <div class="col-md-10">
+                <h3>Lista de Chamados:</h3>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Solução</th>
+                        <th scope="col">Motivo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td scope="row"><button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#abrir_atendimento">Abrir Atendimento</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td scope="row"><button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#abrir_atendimento">Abrir Atendimento</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td scope="row"><button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#abrir_atendimento">Abrir Atendimento</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--Inicio Modal de Abrir Atendimento-->
+            <div class="modal fade" id="abrir_atendimento" tabindex="-1" role="dialog" aria-labelledby="abrir_atendimento" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title col-md-7" id="abrir_atendimento">Atendimento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--Inicio do form-->
+                            <form>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        ***Carregar aqui o que foi preenchido na solicitação de atendimento pelo cliente***
+                                        <label>Observações Gerais:</label>
+                                        <textarea class="form-control" rows="6"></textarea>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!--Fim do form-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary">Pausar</button>
+                            <button type="button" class="btn btn-success">Finalizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Final Modal de Abrir Atendimento-->
+        <!--Fim da tabela de atendimentos tela inicial-->
+    </section>

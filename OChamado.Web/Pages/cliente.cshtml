@@ -1,0 +1,141 @@
+﻿@page
+@model OChamado.Web.Pages.ClienteModel
+@{
+    ViewData["Title"] = "cliente";
+
+}
+    <section id="home">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Botão Modal Abrir Chamado -->
+                <div class="col">
+                    <button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#abrir_chamado">
+                        Solicitar Atendimento
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Abrir Chamado-->
+            <div class="modal fade" id="abrir_chamado" tabindex="-1" role="dialog" aria-labelledby="abrir_chamado" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title col-md-7" id="abrir_chamado">Solicitar Atendimento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--Inicio do form do modal de atendimento-->
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Código do Atendimento:</label>
+                                    <div class="col-sm-2">
+                                        <label type="text" readonly class="form-control">1111</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Aplicação:</label>
+                                    <select class="col-sm-3">
+                                        <option selected>Vendas</option>
+                                        <option>Promotor</option>
+                                        <option>Site</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4">Motivo:</label>
+                                    <select class="col-sm-5">
+                                        <option selected>Aplicativo não funciona</option>
+                                        <option>Vendedor não consegue passar pedido</option>
+                                        <option>Não visualizo as visitas</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descrição do Problema:</label>
+                                    <textarea class="form-control" rows="6"></textarea>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2">Contato:</label>
+                                    <input class="col-sm-3" type="text">
+                                    <label class="col-sm-2">Telefone:</label>
+                                    <input class="col-sm-3" type="tel">
+                                </div>
+                            <!--Fim do form do modal de atendimento-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Tabela de atendimentos tela inicial-->
+            <div class="col-md-10">
+                <h3>Lista de Chamados:</h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Solução</th>
+                            <th scope="col">Motivo</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td scope="row"><button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#visualizar_atendimento">Visualizar</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td scope="row"><button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#visualizar_atendimento">Visualizar</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td scope="row"><button type="button" id="btn-chamado" class="btn" data-toggle="modal" data-target="#visualizar_atendimento">Visualizar</button></</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--Inicio Modal Visualizar Atendimento-->
+            <div class="modal fade" id="visualizar_atendimento" tabindex="-1" role="dialog" aria-labelledby="visualizar_atendimento" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title col-md-7" id="visualizar_atendimento">Atendimento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--Inicio do form-->
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        ***Carregar aqui o que foi preenchido na solicitação de atendimento pelo cliente***
+                                    </div>
+                                </div>
+                            <!--Fim do form-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+                            <button type="button" class="btn btn-warning">Cancelar Solicitação</button>
+                            <button type="button" class="btn btn-primary">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Final Modal de Visualizar Atendimento-->
+        </div>
+        <!--Fim da tabela de atendimentos tela inicial-->
+    </section>
