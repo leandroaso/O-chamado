@@ -12,9 +12,10 @@ using System;
 namespace OChamado.API.Migrations
 {
     [DbContext(typeof(ChamadoContext))]
-    partial class ChamadoContextModelSnapshot : ModelSnapshot
+    [Migration("20180803140511_correcao07")]
+    partial class correcao07
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +79,7 @@ namespace OChamado.API.Migrations
                     b.Property<string>("Nome")
                         .IsRequired();
 
-                    b.Property<int?>("UsuarioId");
+                    b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
 
@@ -138,7 +139,8 @@ namespace OChamado.API.Migrations
                 {
                     b.HasOne("OChamado.API.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

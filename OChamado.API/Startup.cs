@@ -33,8 +33,6 @@ namespace OChamado.API
             //Dependency Injection
             services.AddTransient<AtendimentoDao>();
             services.AddTransient<ClienteDao>();
-            services.AddTransient<EmpresaDao>();
-            services.AddTransient<EmpresaSolucaoDao>();
             services.AddTransient<ResponsavelDao>();
             services.AddTransient<SolucaoDao>();
             services.AddTransient<UsuarioDao>();

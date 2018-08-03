@@ -80,8 +80,8 @@
                         <tr>
                             <td>@atendimento.Id</td>
                             <td>@atendimento.DataCriacao.ToString("dd/MM/yyyy")</td>
-                            <td></td>
-                            <td>@atendimento.Descricao</td>
+							<td>@(atendimento.Solucao ==null? "sem solução": atendimento.Solucao.Nome)</td>
+                            <td>@atendimento.Motivo</td>
                             <td>@atendimento.StatusAtendimento.ToString()</td>
                             <td scope="row">
                                 <button type="button" id="btn-chamado" class="btn" data-toggle="modal" onclick="modalVisualizar('@atendimento.Descricao')" data-target="#visualizar_atendimento">Visualizar</button>

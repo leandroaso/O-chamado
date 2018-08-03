@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace OChamado.API.DAO
 {
@@ -31,7 +32,7 @@ namespace OChamado.API.DAO
 
         public IEnumerable<Atendimento> List()
         {
-            return _context.Atendimento.ToList();
+            return _context.Atendimento.Include(s=> s.Solucao).ToList();
         }
 
         public void Save(Atendimento atendimento)

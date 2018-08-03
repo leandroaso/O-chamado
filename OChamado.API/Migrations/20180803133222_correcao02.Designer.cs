@@ -12,9 +12,10 @@ using System;
 namespace OChamado.API.Migrations
 {
     [DbContext(typeof(ChamadoContext))]
-    partial class ChamadoContextModelSnapshot : ModelSnapshot
+    [Migration("20180803133222_correcao02")]
+    partial class correcao02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,15 +41,19 @@ namespace OChamado.API.Migrations
 
                     b.Property<string>("Motivo");
 
-                    b.Property<int?>("ResponsavelId");
+                    b.Property<int>("ResponsavelId");
 
-                    b.Property<int?>("SolucaoId");
+                    b.Property<int>("Resultado");
+
+                    b.Property<int>("SolucaoId");
 
                     b.Property<int>("StatusAtendimento");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("ResponsavelId");
 
@@ -62,12 +67,48 @@ namespace OChamado.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Email");
+
+                    b.Property<int>("EmpresaId");
+
+                    b.Property<string>("Nome")
+                        .IsRequired();
+
+                    b.Property<string>("Telefone");
+
+                    b.Property<string>("VendedorCodigo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("Cliente");
+                });
+
+            modelBuilder.Entity("OChamado.API.Models.Empresa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("Nome")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cliente");
+                    b.ToTable("Empresa");
+                });
+
+            modelBuilder.Entity("OChamado.API.Models.EmpresaSolucao", b =>
+                {
+                    b.Property<int>("EmpresaId");
+
+                    b.Property<int>("SolucaoId");
+
+                    b.HasKey("EmpresaId", "SolucaoId");
+
+                    b.HasIndex("SolucaoId");
+
+                    b.ToTable("EmpresaSolucao");
                 });
 
             modelBuilder.Entity("OChamado.API.Models.Responsavel", b =>
@@ -78,7 +119,7 @@ namespace OChamado.API.Migrations
                     b.Property<string>("Nome")
                         .IsRequired();
 
-                    b.Property<int?>("UsuarioId");
+                    b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
 
@@ -125,20 +166,48 @@ namespace OChamado.API.Migrations
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("OChamado.API.Models.Empresa", "Empresa")
+                        .WithMany("Atendimento")
+                        .HasForeignKey("EmpresaId");
+
                     b.HasOne("OChamado.API.Models.Responsavel", "Responsavel")
                         .WithMany()
-                        .HasForeignKey("ResponsavelId");
+                        .HasForeignKey("ResponsavelId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("OChamado.API.Models.Solucao", "Solucao")
                         .WithMany()
-                        .HasForeignKey("SolucaoId");
+                        .HasForeignKey("SolucaoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OChamado.API.Models.Cliente", b =>
+                {
+                    b.HasOne("OChamado.API.Models.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OChamado.API.Models.EmpresaSolucao", b =>
+                {
+                    b.HasOne("OChamado.API.Models.Empresa", "Empresa")
+                        .WithMany("EmpresaSolucao")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("OChamado.API.Models.Solucao", "Solucao")
+                        .WithMany("EmpresaSolucao")
+                        .HasForeignKey("SolucaoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OChamado.API.Models.Responsavel", b =>
                 {
                     b.HasOne("OChamado.API.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

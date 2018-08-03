@@ -12,6 +12,5 @@ namespace OChamado.API.Models
         [Required]
         public String Nome { get; set; }
         public String Descricao { get; set; }
-        public ICollection<EmpresaSolucao> EmpresaSolucao { get; set; }
     }
 }

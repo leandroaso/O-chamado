@@ -12,9 +12,10 @@ using System;
 namespace OChamado.API.Migrations
 {
     [DbContext(typeof(ChamadoContext))]
-    partial class ChamadoContextModelSnapshot : ModelSnapshot
+    [Migration("20180803134019_correcao04")]
+    partial class correcao04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +41,9 @@ namespace OChamado.API.Migrations
 
                     b.Property<string>("Motivo");
 
-                    b.Property<int?>("ResponsavelId");
+                    b.Property<int>("ResponsavelId");
 
-                    b.Property<int?>("SolucaoId");
+                    b.Property<int>("SolucaoId");
 
                     b.Property<int>("StatusAtendimento");
 
@@ -78,7 +79,7 @@ namespace OChamado.API.Migrations
                     b.Property<string>("Nome")
                         .IsRequired();
 
-                    b.Property<int?>("UsuarioId");
+                    b.Property<int>("UsuarioId");
 
                     b.HasKey("Id");
 
@@ -127,18 +128,21 @@ namespace OChamado.API.Migrations
 
                     b.HasOne("OChamado.API.Models.Responsavel", "Responsavel")
                         .WithMany()
-                        .HasForeignKey("ResponsavelId");
+                        .HasForeignKey("ResponsavelId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("OChamado.API.Models.Solucao", "Solucao")
                         .WithMany()
-                        .HasForeignKey("SolucaoId");
+                        .HasForeignKey("SolucaoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("OChamado.API.Models.Responsavel", b =>
                 {
                     b.HasOne("OChamado.API.Models.Usuario", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

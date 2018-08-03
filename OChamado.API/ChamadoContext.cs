@@ -12,11 +12,9 @@ namespace OChamado.API
     {
         public DbSet<Atendimento> Atendimento { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
-        public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Responsavel> Responsavel { get; set; }
         public DbSet<Solucao> Solucao { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
-        public DbSet<EmpresaSolucao> EmpresaSolucao{get; set;}
 
         public ChamadoContext(DbContextOptions<ChamadoContext> options) : base(options){ }
         public ChamadoContext(){}
@@ -36,10 +34,6 @@ namespace OChamado.API
                 .ToTable("Usuarios")
                 .HasKey(u => u.Id);
 
-            modelBuilder.Entity<EmpresaSolucao>()
-                .ToTable("EmpresaSolucao")
-                .HasKey(es => new { es.EmpresaId, es.SolucaoId});
-
             modelBuilder.Entity<Responsavel>()
                 .ToTable("Responsavel")
                 .HasKey(r => r.Id);
@@ -50,20 +44,12 @@ namespace OChamado.API
 
             modelBuilder.Entity<Cliente>()
                 .ToTable("Cliente")
-                .HasKey(c => new { c.Id, c.Email });
+                .HasKey(c => new { c.Id});
 
             modelBuilder.Entity<Atendimento>()
                 .ToTable("Atendimento")
                 .HasKey(a => a.Id);
 
-            modelBuilder.Entity<Atendimento>()
-                .HasOne(a => a.Empresa)
-                .WithMany(e => e.Atendimento)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-
-            modelBuilder.Entity<Empresa>()
-                .ToTable("Empresa")
-                .HasKey(e => e.Id);
         }
     }
 }
