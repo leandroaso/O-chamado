@@ -33,15 +33,18 @@
                     <h3>Sou Cliente</h3>
                         <div class="form-group">
                             <label class="col-sm-3">Código:</label>
-                            <div class="col-sm-7">
-                                <input class="form-control form-control-sm" type="text" placeholder="Seu usuário">
-                            </div>
+	                        <div class="col-sm-7">
+		                        
+		                        <input asp-for="usuarioLogado.Login" class="form-control form-control-sm" placeholder="Seu usuário"/>
+
+		                        <input class="form-control form-control-sm" type="text" placeholder="Seu usuário">
+	                        </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3">&nbsp;&nbsp;&nbsp;Email:</label>
-                            <div class="col-sm-7">
-                                <input class="form-control form-control-sm" type="text" placeholder="Sua senha"><br>
-                            </div>
+							<div class="col-sm-7">
+								<input asp-for="usuarioLogado.Senha" type="password" class="form-control form-control-sm" placeholder="Sua senha" />
+							</div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-8">

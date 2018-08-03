@@ -15,14 +15,18 @@ namespace OChamado.Web.Pages
         private string UrlBase => "http://localhost:53520/api/";
         public IList<Atendimento> Atendimentos { get; set; }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            if (string.IsNullOrWhiteSpace(UsuarioLogado.Nome))
+                return RedirectToPage("Index");
+
             ViewData["NomeUsuario"] = "Irineu Cliente";
             using (var client = new HttpClient())
             {
                 var result = await client.GetStringAsync($"{UrlBase}Atendimento/lista");
                 Atendimentos = JsonConvert.DeserializeObject<IList<Atendimento>>(result);
             }
+            return Page();
         }
 
     }

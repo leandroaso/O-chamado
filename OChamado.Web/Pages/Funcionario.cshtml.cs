@@ -11,6 +11,8 @@ namespace OChamado.Web.Pages
     {
         public void OnGet()
         {
+            if (string.IsNullOrWhiteSpace(UsuarioLogado.Nome))
+                Redirect("index");
             ViewData["NomeUsuario"] = "Irineu Funcionario";
         }
     }

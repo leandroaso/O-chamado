@@ -13,6 +13,8 @@ namespace OChamado.API.Models
         public String Login { get; set; }
         [Required]
         public String Senha { get; set; }
+
+        public string Nome { get; set; }
         
     }
 }
