@@ -72,5 +72,13 @@ namespace OChamado.API.Controllers
             Dao.Updade(atendimento);
             return Ok(atendimento);
         }
+
+        //[HttpGet]
+        //[Route("retornar-atendimento")]
+        //public Atendimento RetornarAtendimentoPor(params object[] args)
+        //{
+            
+        //}
+
     }
 }

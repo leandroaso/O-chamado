@@ -22,6 +22,7 @@ namespace OChamado.Web.Pages
         public async Task<IActionResult> Post([FromBody] AtendimentoVO atendimentoVo)
         {
             using (var client = new HttpClient())
+
             {
                 var content = new StringContent(JsonConvert.SerializeObject(atendimentoVo), Encoding.UTF8, "application/json");
                 var url = $"{UrlBase}Atendimento/cadastro";

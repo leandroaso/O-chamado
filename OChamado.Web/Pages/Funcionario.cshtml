@@ -32,6 +32,8 @@
                                 <button type="button" id="btn-chamado" class="btn btn-chamado"
                                         idAtend="@atendimento.Id"
                                         clienteDescricao="@atendimento.Descricao"
+                                        aplicacao="@atendimento.Aplicacao"
+                                        motivo="@atendimento.Motivo"
                                         solucaoDescricao="@(atendimento.Solucao ==null? "sem descricao": atendimento.Solucao)">
                                     Abrir Atendimento
                                 </button>
@@ -57,8 +59,12 @@
                             <input type="hidden" name="idAtend" id="idAtend" value="" />
                             <div class="form-group row">
                                 <div class="col-md-12">
+                                    <strong>Aplicação:</strong>
+                                    <label id="aplicacao"></label><br />
+                                    <strong>Motivo:</strong>
+                                    <label id="motivo"></label><br />
                                     <strong>Descrição:</strong>
-                                    <label id="clienteDescricao"></label><br/>
+                                    <label id="clienteDescricao"></label><br />
                                     <label>Observações Gerais:</label>
                                     <textarea id="solucaoDescricao" class="form-control" rows="6"></textarea>
                                 </div>
@@ -141,10 +147,14 @@
             var modal = $('#abrir_atendimento');
             var idAtend = $(this).attr("idAtend");
             var clienteDescricao = $(this).attr("clienteDescricao");
+            var aplicacao = $(this).attr("aplicacao");
+            var motivo = $(this).attr("motivo");
             var solucaoDescricao = $(this).attr("solucaoDescricao");
 
             modal.find("#idAtend").val(idAtend);
             modal.find("#clienteDescricao").html(clienteDescricao);
+            modal.find("#aplicacao").html(aplicacao);
+            modal.find("#motivo").html(motivo);
             modal.find("#solucaoDescricao").val(solucaoDescricao);
 
             modal.modal('show');
