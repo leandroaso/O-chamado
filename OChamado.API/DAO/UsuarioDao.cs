@@ -27,6 +27,12 @@ namespace OChamado.API.DAO
             return _context.Usuario.Find(id);
         }
 
+        public Usuario Find(Usuario User)
+        {
+            var usuario =_context.Usuario.FirstOrDefault(u => u.Login == User.Login && u.Senha == User.Senha);
+            return usuario;
+        }
+
         public IEnumerable<Usuario> List()
         {
             return _context.Usuario.ToList();

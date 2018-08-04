@@ -1,0 +1,153 @@
+﻿@page
+@model OChamado.Web.Pages.FuncionarioModel
+@{
+    ViewData["Title"] = "Funcionario";
+}
+<section id="home">
+    <div class="container-fluid">
+        <!--Tabela de atendimentos tela inicial-->
+        <div class="col-md-10">
+            <h3>Lista de Chamados:</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Data abertura</th>
+                        <th scope="col">Solução</th>
+                        <th scope="col">Motivo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var atendimento in Model.Atendimentos)
+                    {
+                        <tr>
+                            <td>@atendimento.Id</td>
+                            <td>@atendimento.DataCriacao.ToString("dd/MM/yyyy")</td>
+                            <td>@(atendimento.Solucao == null ? "sem solução" : atendimento.Solucao)</td>
+                            <td>@atendimento.Motivo</td>
+                            <td>@atendimento.StatusAtendimento.ToString()</td>
+                            <td scope="row">
+                                <button type="button" id="btn-chamado" class="btn btn-chamado"
+                                        idAtend="@atendimento.Id"
+                                        clienteDescricao="@atendimento.Descricao"
+                                        solucaoDescricao="@(atendimento.Solucao ==null? "sem descricao": atendimento.Solucao)">
+                                    Abrir Atendimento
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!--Inicio Modal de Abrir Atendimento-->
+        <div class="modal fade" id="abrir_atendimento" tabindex="-1" role="dialog" aria-labelledby="abrir_atendimento" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title col-md-7" id="abrir_atendimento">Atendimento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!--Inicio do form-->
+                        <form>
+                            <input type="hidden" name="idAtend" id="idAtend" value="" />
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <strong>Descrição:</strong>
+                                    <label id="clienteDescricao"></label><br/>
+                                    <label>Observações Gerais:</label>
+                                    <textarea id="solucaoDescricao" class="form-control" rows="6"></textarea>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!--Fim do form-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnsalvar">Salvar</button>
+                        <button type="button" class="btn btn-success" id="btnfinalizar">Finalizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Final Modal de Abrir Atendimento-->
+    <!--Fim da tabela de atendimentos tela inicial-->
+</section>
+
+<script>
+    $(document).ready(function () {
+        $("#btnsalvar").click(function () {
+            var modal = $("#abrir_atendimento");
+
+            var Id = modal.find("#idAtend").val();
+            var Solucao = modal.find("#solucaoDescricao").val();
+
+            var atendimento = {
+                Id: Id,
+                Solucao: Solucao
+            }
+
+            $.ajax({
+                url: "http://localhost:53524/api/Helper/Atend-Salvar",
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(atendimento),
+                success: function (data) {
+                    location.reload(true);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+        });
+
+        $("#btnfinalizar").click(function () {
+            var modal = $("#abrir_atendimento");
+
+            var Id = modal.find("#idAtend").val();
+            var Solucao = modal.find("#solucaoDescricao").val();
+
+            var atendimento = {
+                Id: Id,
+                Solucao: Solucao
+            }
+
+            $.ajax({
+                url: "http://localhost:53524/api/Helper/Atend-Finalizar",
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(atendimento),
+                success: function (data) {
+                    location.reload(true);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+        });
+
+
+        $(".btn-chamado").click(function () {
+            var modal = $('#abrir_atendimento');
+            var idAtend = $(this).attr("idAtend");
+            var clienteDescricao = $(this).attr("clienteDescricao");
+            var solucaoDescricao = $(this).attr("solucaoDescricao");
+
+            modal.find("#idAtend").val(idAtend);
+            modal.find("#clienteDescricao").html(clienteDescricao);
+            modal.find("#solucaoDescricao").val(solucaoDescricao);
+
+            modal.modal('show');
+        });
+    });
+</script>

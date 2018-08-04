@@ -11,8 +11,6 @@ namespace OChamado.API.Models
         public int Id { get; set; }
         [Required]
         public String Nome { get; set; }
-        public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
-
     }
 }

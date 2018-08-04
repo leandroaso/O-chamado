@@ -4,46 +4,73 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OChamado.API.Class;
 using OChamado.API.DAO;
 using OChamado.API.Models;
 
 namespace OChamado.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/atendimento")]
+    [Route("api/Atendimento")]
     public class AtendimentoController : Controller
     {
-        public readonly AtendimentoDao _atendimentoDao ;
-
-        private readonly ChamadoContext _context;
-
-        public AtendimentoController(AtendimentoDao dao, ChamadoContext chamadoContext)
+        public AtendimentoDao Dao { get; set; }
+        public AtendimentoController(AtendimentoDao dao)
         {
-            _atendimentoDao = dao;
-            _context = chamadoContext;
+            Dao = dao;
         }
+
+        [HttpGet]
+        [Route("lista")]
+        public IActionResult Get()
+        {
+            var atendimentos = Dao.List();
+            return Ok(atendimentos);
+        }
+
         [HttpPost]
-        [Route("cadastrar")]
-        public IActionResult CadastrarAtendimento(Atendimento atendimento)
+        [Route("Cadastro")]
+        public IActionResult Post( [FromBody] AtendimentoVO atendimentoVo )
         {
-            _atendimentoDao.Save(atendimento);
-            return Json (new { Status= "OK", Mensagem = "Cadastrado"});
+            var atendimento = new Atendimento()
+            {
+                Cliente = new Cliente
+                {
+                    Nome = atendimentoVo.Cliente
+                },
+                DataCriacao = DateTime.Now,
+                Descricao = atendimentoVo.Descricao,
+                StatusAtendimento = EStatusAtendimento.Aberto,
+                Aplicacao = atendimentoVo.Aplicacao,
+                Motivo = atendimentoVo.Motivo
+            };
+            Dao.Save(atendimento);
+            return Created(string.Empty, atendimento);
         }
 
-        [HttpGet]
-        [Route("listar")]
-        public IEnumerable<Atendimento> ListarAtendimentos()
+        [HttpPost]
+        [Route("Salvar")]
+        public IActionResult Atualizar([FromBody] AtendimentoVO atendimentoVo)
         {
-            return _atendimentoDao.List();
+            var atendimento = Dao.Get(atendimentoVo.Id);
+            atendimento.Solucao = atendimentoVo.Solucao;
+            atendimento.StatusAtendimento = EStatusAtendimento.EmAndamento;
+
+            Dao.Updade(atendimento);
+            return Ok(atendimento);
         }
 
-        [HttpGet]
-        [Route("buscar")]
-        public Atendimento BuscarAtendimento(params object[] args)
+
+        [HttpPost]
+        [Route("Finalizar")]
+        public IActionResult Finalizar([FromBody] AtendimentoVO atendimentoVo)
         {
-            return _atendimentoDao.Get(args);
+            var atendimento = Dao.Get(atendimentoVo.Id);
+            atendimento.Solucao = atendimentoVo.Solucao;
+            atendimento.StatusAtendimento = EStatusAtendimento.Concluido;
+
+            Dao.Updade(atendimento);
+            return Ok(atendimento);
         }
-
-
     }
 }
