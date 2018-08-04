@@ -47,5 +47,30 @@ namespace OChamado.API.Controllers
             Dao.Save(atendimento);
             return Created(string.Empty, atendimento);
         }
+
+        [HttpPost]
+        [Route("Salvar")]
+        public IActionResult Atualizar([FromBody] AtendimentoVO atendimentoVo)
+        {
+            var atendimento = Dao.Get(atendimentoVo.Id);
+            atendimento.Solucao = atendimentoVo.Solucao;
+            atendimento.StatusAtendimento = EStatusAtendimento.EmAndamento;
+
+            Dao.Updade(atendimento);
+            return Ok(atendimento);
+        }
+
+
+        [HttpPost]
+        [Route("Finalizar")]
+        public IActionResult Finalizar([FromBody] AtendimentoVO atendimentoVo)
+        {
+            var atendimento = Dao.Get(atendimentoVo.Id);
+            atendimento.Solucao = atendimentoVo.Solucao;
+            atendimento.StatusAtendimento = EStatusAtendimento.Concluido;
+
+            Dao.Updade(atendimento);
+            return Ok(atendimento);
+        }
     }
 }

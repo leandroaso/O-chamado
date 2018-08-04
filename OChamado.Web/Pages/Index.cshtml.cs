@@ -11,27 +11,13 @@ namespace OChamado.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        public UsuarioDao Dao { get; set; }
-        public IndexModel(UsuarioDao dao)
-        {
-            Dao = dao;
-        }
-
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        [BindProperty]
-        public Usuario usuarioLogado { get; set; }
-
-        public void OnPostAsync()
+        public void OnPostAsync(Usuario Usuario)
         {
-            var user = Dao.Find(usuarioLogado);
-            if (user !=null)
-            {
-                UsuarioLogado.Nome = user.Nome;
-            }
         }
     }
 }

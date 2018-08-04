@@ -32,7 +32,7 @@ namespace OChamado.API.DAO
 
         public IEnumerable<Atendimento> List()
         {
-            return _context.Atendimento.Include(s=> s.Solucao).ToList();
+            return _context.Atendimento.ToList();
         }
 
         public void Save(Atendimento atendimento)

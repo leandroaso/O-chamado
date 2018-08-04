@@ -11,7 +11,7 @@ namespace OChamado.API.Models
     {
         public int Id { get; set; }
         public int EmpresaId { get; set; }
-        public Solucao Solucao { get; set; }
+        public string Solucao { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataFinalizacao { get; set; }
         public Cliente Cliente { get; set; }

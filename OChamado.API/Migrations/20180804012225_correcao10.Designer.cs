@@ -12,9 +12,10 @@ using System;
 namespace OChamado.API.Migrations
 {
     [DbContext(typeof(ChamadoContext))]
-    partial class ChamadoContextModelSnapshot : ModelSnapshot
+    [Migration("20180804012225_correcao10")]
+    partial class correcao10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

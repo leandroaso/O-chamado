@@ -12,9 +12,10 @@ using System;
 namespace OChamado.API.Migrations
 {
     [DbContext(typeof(ChamadoContext))]
-    partial class ChamadoContextModelSnapshot : ModelSnapshot
+    [Migration("20180803225827_correcao09")]
+    partial class correcao09
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +43,7 @@ namespace OChamado.API.Migrations
 
                     b.Property<int?>("ResponsavelId");
 
-                    b.Property<string>("Solucao");
+                    b.Property<int?>("SolucaoId");
 
                     b.Property<int>("StatusAtendimento");
 
@@ -51,6 +52,8 @@ namespace OChamado.API.Migrations
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("ResponsavelId");
+
+                    b.HasIndex("SolucaoId");
 
                     b.ToTable("Atendimento");
                 });
@@ -128,6 +131,10 @@ namespace OChamado.API.Migrations
                     b.HasOne("OChamado.API.Models.Responsavel", "Responsavel")
                         .WithMany()
                         .HasForeignKey("ResponsavelId");
+
+                    b.HasOne("OChamado.API.Models.Solucao", "Solucao")
+                        .WithMany()
+                        .HasForeignKey("SolucaoId");
                 });
 
             modelBuilder.Entity("OChamado.API.Models.Responsavel", b =>

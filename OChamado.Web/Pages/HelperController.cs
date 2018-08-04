@@ -33,5 +33,39 @@ namespace OChamado.Web.Pages
 
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("Atend-Salvar")]
+        public async Task<IActionResult> Salvar([FromBody] AtendimentoVO atendimentoVo)
+        {
+            using (var client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(atendimentoVo), Encoding.UTF8, "application/json");
+                var url = $"{UrlBase}Atendimento/Salvar";
+
+                var result = client.PostAsync(url, content).Result;
+                if (result.IsSuccessStatusCode)
+                    return Ok(atendimentoVo);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("Atend-Finalizar")]
+        public async Task<IActionResult> Finalizar([FromBody] AtendimentoVO atendimentoVo)
+        {
+            using (var client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(atendimentoVo), Encoding.UTF8, "application/json");
+                var url = $"{UrlBase}Atendimento/Finalizar";
+
+                var result = client.PostAsync(url, content).Result;
+                if (result.IsSuccessStatusCode)
+                    return Ok(atendimentoVo);
+            }
+
+            return BadRequest();
+        }
     }
 }
